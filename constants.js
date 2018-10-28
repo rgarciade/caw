@@ -4,6 +4,9 @@ const Constants = {
     },
     App: {
         port: 3800
+    },
+    jwt: {
+        key: 'fafawwwcaxzas'
     }
 }
 module.exports = Constants
