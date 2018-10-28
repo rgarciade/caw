@@ -3,10 +3,10 @@ const DB = require('./DB')
 
 const saveNewNote = (req, res) => {
     try {
-        var params = req.body
-        var note = new Note
+        const params = req.body
 
         if (params.title && params.text) {
+            const note = new Note
             note.title = params.title
             note.text = params.text
 
