@@ -10,7 +10,6 @@ const saveNewNote = (req, res) => {
             note.title = params.title
             note.text = params.text
 
-
             DB.saveNote(note)
                 .then((msg) => {
                     res.status(200).send(msg)
@@ -29,4 +28,14 @@ const saveNewNote = (req, res) => {
         res.status(404).send({ message: 'createwNote error' })
     }
 }
-module.exports = { saveNewNote };
+const listAllNotes = (req, res) => {
+    DB.listNotes(Note)
+        .then((msg) => {
+            res.status(200).send(msg)
+        })
+        .catch((err) => {
+            console.error(err)
+            res.status(404).send({ message: 'list notes error' })
+        })
+}
+module.exports = { saveNewNote, listAllNotes };

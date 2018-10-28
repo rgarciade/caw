@@ -1,6 +1,6 @@
 const saveNote = (note) => {
 
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
         note.save((err, noteStore) => {
             if (err) {
                 console.error(err)
@@ -13,7 +13,18 @@ const saveNote = (note) => {
         })
 
     })
-
-
 }
-module.exports = { saveNote };
+const listNotes = (Note) => {
+    return new Promise((resolve, reject) => {
+        Note.find({}, (err, notes) => {
+            if (err) reject(err)
+            resolve(transformNotes(notes));
+        });
+    })
+}
+const transformNotes = (notes) => {
+    return notes.map((x) => {
+        return { id: x._id, title: x.title, text: x.text };
+    })
+}
+module.exports = { saveNote, listNotes };
