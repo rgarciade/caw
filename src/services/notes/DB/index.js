@@ -22,9 +22,20 @@ const listNotes = (Note) => {
         });
     })
 }
-const transformNotes = (notes) => {
-    return notes.map((x) => {
-        return { id: x._id, title: x.title, text: x.text };
+const listNote = (Note, id) => {
+    return new Promise((resolve, reject) => {
+        Note.findById(id, (err, noteresult) => {
+            if (err) reject(err)
+            resolve(transformNote(noteresult));
+        });
     })
 }
-module.exports = { saveNote, listNotes };
+const transformNotes = (notes) => {
+    return notes.map((note) => {
+        return transformNote(note)
+    })
+}
+const transformNote = (note) => {
+    return { id: note._id, title: note.title, text: note.text }
+}
+module.exports = { saveNote, listNotes, listNote };

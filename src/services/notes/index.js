@@ -1,4 +1,4 @@
-var Note = require('./models/note')
+const Note = require('./models/note')
 const DB = require('./DB')
 
 const saveNewNote = (req, res) => {
@@ -38,4 +38,24 @@ const listAllNotes = (req, res) => {
             res.status(404).send({ message: 'list notes error' })
         })
 }
-module.exports = { saveNewNote, listAllNotes };
+const listNote = (req, res) => {
+    try {
+        const params = req.body
+
+        if (params.id) {
+            DB.listNote(Note, params.id)
+                .then((msg) => {
+                    res.status(200).send(msg)
+                })
+                .catch((err) => {
+                    console.error(err)
+                    res.status(404).send({ message: 'list notes error' })
+                })
+        }
+    } catch (error) {
+        console.error(error)
+        res.status(404).send({ message: 'createwNote error' })
+    }
+
+}
+module.exports = { saveNewNote, listAllNotes, listNote };
