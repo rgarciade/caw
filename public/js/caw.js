@@ -12,9 +12,24 @@ new Vue({
         createderror: false,
         name: '',
         pass: '',
-        notes: null
+        notes: null,
+        titulo: '',
+        texto: ''
     },
     methods: {
+        newNote() {
+            var self = this;
+            axios.post('http://localhost:3800/api/notes/addNote', {
+                    title: this.titulo,
+                    text: this.texto
+                }, { headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token') } })
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
         SignIn() {
             var self = this;
             axios.post('http://localhost:3800/api/user/loging', {

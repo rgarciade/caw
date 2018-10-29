@@ -32,6 +32,16 @@
             <button v-on:click="logout()"> logout</button>
         </div>
         <div v-if="loged">
+            <div>
+                <h1>Nueva nota</h1>
+                <form id='newnote' @submit.prevent="newNote()">
+                    <input type="text" id="nombre3" v-model="titulo" placeholder="titulo"></br>
+                    <textarea v-model="texto" id="notatext" placeholder="texto"></textarea>
+                    <button>nueva nota</button>
+                    <span v-if="createNoteErro"><br>Usuario creado logueese</span>
+
+                </form>
+            </div>
             <h1>listar</h1>
             <button v-on:click="listAll() ">listAll</button>
             <button v-on:click="clearAll()">x</button>
