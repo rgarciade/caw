@@ -25,15 +25,29 @@
                 <input type="password" id="password2" v-model="pass" placeholder="password">
                 <button>Sign UP</button>
                 <span v-if="created"><br>Usuario creado logueese</span>
+                <span v-if="createderror"><br>error al crear usuario</span>
             </form>
         </div>
-        <div v-if="loged">listar</div>
+        <div v-if="loged">
+            <button v-on:click="logout()"> logout</button>
+        </div>
+        <div v-if="loged">
+            <h1>listar</h1>
+            <button v-on:click="listAll() ">listAll</button>
+            <button v-on:click="clearAll()">x</button>
+            <ol>
+                <li v-for="(note,index) in notes ">
+                    <h1>{{note.title}}</h1>
+                    <p>{{note.text}}</p>
+                </li>
+            </ol>
+        </div>
 
 
     </principal>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <script src="./js/caw.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js "></script>
+    <script src="./js/caw.js "></script>
 </body>
 
 </html>
