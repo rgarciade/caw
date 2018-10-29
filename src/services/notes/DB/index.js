@@ -50,7 +50,10 @@ const findFavInNote = (Note, NoteId, userId) => {
     })
 }
 const noteExist = (favsArr, userId) => {
-    retun favsArr.some(userId)
+    for (let index = 0; index < favsArr.length; index++) {
+        if (favsArr[index].userId == userId) return false
+    }
+    return true
 }
 const transformNotes = (notes) => {
     return notes.map((note) => {

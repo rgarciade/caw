@@ -47,15 +47,28 @@
             <button v-on:click="clearAll()">x</button>
             <ol>
                 <li v-for="(note,index) in notes ">
-                    <h1>{{note.title}}</h1>
-                    <p>{{note.text}}</p>
+                    <h1><img src="./imgs/star.png" v-on:click="addFav(note.id)">{{note.title}}</h1>
+                    <p>{{note.text}}
                 </li>
+                </p>
+
+            </ol>
+            <button v-on:click="listAllStarts() ">list All My Starts</button>
+            <button v-on:click="clearAllStarts()">x</button>
+            <ol>
+                <li v-for="(Start,index) in Starts ">
+                    <h1>{{Start.title}}</h1>
+                    <p>{{Start.text}}
+                </li>
+                </p>
+
             </ol>
         </div>
 
 
     </principal>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.11/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js "></script>
     <script src="./js/caw.js "></script>
 </body>

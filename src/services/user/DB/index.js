@@ -45,6 +45,18 @@ const loginguUser = (User, bcrypt, userData) => {
         })
     })
 }
+const getUserFavs = (User, userId) => {
+    return new Promise((resolve, reject) => {
+        User.findById(userId, (err, user) => {
+            if (err) reject(err, res)
+            if (user) {
+                resolve(user.favs)
+            } else {
+                reject('no existe el usuario')
+            }
+        })
+    })
+}
 const addFavToNoteToUser = (Note, NoteId, userId) => {
     return new Promise((resolve, reject) => {
         Note.findByIdAndUpdate({ _id: userId }, { $push: { favs: { 'noteId': NoteId } } }, { new: true }, (err, noteresult) => {
@@ -56,4 +68,4 @@ const addFavToNoteToUser = (Note, NoteId, userId) => {
 const transformUser = (user) => {
     return { name: user.name }
 }
-module.exports = { chekUser, createUser, loginguUser, addFavToNoteToUser };
+module.exports = { chekUser, createUser, loginguUser, addFavToNoteToUser, getUserFavs };
