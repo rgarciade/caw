@@ -27,7 +27,7 @@ function saveUser(req, res) {
             })
 
     } else {
-        res.status(404).send('Envia los campos necesarios', res)
+        res.status(404).send('Send the necessary fields', res)
     }
 }
 
@@ -47,6 +47,26 @@ function loginguUser(req, res) {
             res.status(404).send({ err: err })
         })
 }
+
+function addFavToNoteToUser(req, res) {
+    try {
+        const params = req.body
+
+        if (params.userId && params.NoteId) {
+            DB.addFavToNote(Note, params.NoteId, params.userId)
+                .then((msg) => {
+                    res.status(200).send(msg)
+                })
+                .catch((err) => {
+                    console.error(err)
+                    res.status(404).send({ message: 'add favorite error' })
+                })
+        }
+    } catch (error) {
+        console.error(error)
+        res.status(404).send({ message: 'need userId' })
+    }
+}
 const createToken = (user) => {
     var payload = {
         sub: user._id,
@@ -57,7 +77,4 @@ const createToken = (user) => {
     return jwt.encode(payload, Constants.jwt.key)
 }
 
-module.exports = {
-    saveUser,
-    loginguUser
-}
+module.exports = { saveUser, loginguUser, addFavToNoteToUser }

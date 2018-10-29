@@ -44,7 +44,15 @@ const loginguUser = (User, bcrypt, userData) => {
         })
     })
 }
+const addFavToNoteToUser = (Note, NoteId, userId) => {
+    return new Promise((resolve, reject) => {
+        Note.findByIdAndUpdate({ _id: userId }, { $push: { favs: { 'noteId': NoteId } } }, { new: true }, (err, noteresult) => {
+            if (err) reject(err)
+            resolve({ msg: 'fav add' });
+        });
+    })
+}
 const transformUser = (user) => {
     return { name: user.name }
 }
-module.exports = { chekUser, createUser, loginguUser };
+module.exports = { chekUser, createUser, loginguUser, addFavToNoteToUser };

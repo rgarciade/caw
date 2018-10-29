@@ -1,5 +1,7 @@
 const Note = require('./models/note')
+const User = require('../user/models/user')
 const DB = require('./DB')
+const DB_User = require('../user/DB')
 
 const saveNewNote = (req, res) => {
     try {
@@ -58,4 +60,37 @@ const listNote = (req, res) => {
     }
 
 }
-module.exports = { saveNewNote, listAllNotes, listNote };
+const addFav = (req, res) => {
+    try {
+        const params = req.body
+
+        if (params.userId && params.NoteId) {
+            DB.findFavInNote(Note, params.NoteId, params.userId)
+                .then(() => {
+                    DB.addFavToNote(Note, params.NoteId, params.userId)
+                        .then(() => {
+                            DB_User.addFavToNoteToUser(User, params.NoteId, params.userId)
+                                .then((msg) => {
+                                    res.status(200).send({ msg })
+                                })
+                                .catch((err) => {
+                                    console.error(err)
+                                    res.status(404).send({ message: 'add favorite error' })
+                                })
+                        })
+                        .catch((err) => {
+                            console.error(err)
+                            res.status(404).send({ message: 'add favorite error' })
+                        })
+                }).catch((err) => {
+                    console.error(err)
+                    res.status(404).send({ message: err })
+                })
+
+        }
+    } catch (error) {
+        console.error(error)
+        res.status(404).send({ message: 'need userId' })
+    }
+}
+module.exports = { saveNewNote, listAllNotes, listNote, addFav };
