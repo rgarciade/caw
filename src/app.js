@@ -6,6 +6,9 @@ const app = express()
 const notes_routes = require('./services/notes/route')
 const user_routes = require('./services/user/route')
 
+//statics
+app.use(express.static('public'));
+
 //middlewarw
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

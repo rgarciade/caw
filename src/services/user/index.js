@@ -34,7 +34,8 @@ function saveUser(req, res) {
 
 function loginguUser(req, res) {
     const params = req.body
-
+    console.log(req.body)
+    console.log('aa')
     const userData = {
         name: params.name,
         password: params.password
@@ -44,7 +45,7 @@ function loginguUser(req, res) {
             res.status(200).send({ userName: user.name, token: createToken(user) })
         }).catch((err) => {
             console.error(err)
-            res.status(404).send({ err: err })
+            res.status(401).send({ err: err })
         })
 }
 

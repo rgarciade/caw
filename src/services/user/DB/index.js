@@ -28,6 +28,7 @@ const createUser = (hash, user) => {
 }
 const loginguUser = (User, bcrypt, userData) => {
     return new Promise((resolve, reject) => {
+        console.log(userData)
         User.findOne({ name: userData.name }, (err, user) => {
             if (err) reject(err, res)
             if (user) {
@@ -35,11 +36,11 @@ const loginguUser = (User, bcrypt, userData) => {
                     if (check) {
                         resolve(user)
                     } else {
-                        reject('error en el loging', req)
+                        reject('error en el loging')
                     }
                 })
             } else {
-                reject('no existe el usuario', res)
+                reject('no existe el usuario')
             }
         })
     })

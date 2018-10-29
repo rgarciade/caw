@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>caw</title>
+</head>
+
+<body>
+    <principal>
+        <div v-if="!loged">
+            <form id='SignIn' @submit.prevent="SignIn()">
+                <h1>Crear Usuario</h1>
+                <input type="text" id="nombre1" v-model="name" placeholder="nombre">
+                <input type="password" id="password1" v-model="pass" placeholder="password">
+                <button>Sign In</button>
+                <span v-if="signerror"><br>error en el loging</span>
+            </form>
+            <form id='loging' @submit.prevent="Signup()">
+                <h1>loguearse</h1>
+                <input type="text" id="nombre2" v-model="name" placeholder="nombre">
+                <input type="password" id="password2" v-model="pass" placeholder="password">
+                <button>Sign UP</button>
+                <span v-if="created"><br>Usuario creado logueese</span>
+            </form>
+        </div>
+        <div v-if="loged">listar</div>
+
+
+    </principal>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="./js/caw.js"></script>
+</body>
+
+</html>
