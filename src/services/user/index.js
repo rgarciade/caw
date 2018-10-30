@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt-nodejs')
 const jwt = require('jwt-simple')
 const moment = require('moment')
 const Constants = require('../../../constants');
+const auth = require('../../middelwares/authentificate')
 
 function saveUser(req, res) {
     const params = req.body
@@ -72,9 +73,9 @@ function addFavToNoteToUser(req, res) {
 function ListAllfavoritesNotes(req, res) {
     try {
         const params = req.body
-
-        if (params.userId) {
-            DB.getUserFavs(User, params.userId)
+        const userId = auth.getUserId(req.headers.authorization)
+        if (userId) {
+            DB.getUserFavs(User, userId)
                 .then((favs) => {
                     let proms = []
                     for (let index = 0; index < favs.length; index++) {

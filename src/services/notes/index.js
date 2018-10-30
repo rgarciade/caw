@@ -2,6 +2,7 @@ const Note = require('./models/note')
 const User = require('../user/models/user')
 const DB = require('./DB')
 const DB_User = require('../user/DB')
+const auth = require('../../middelwares/authentificate')
 
 const saveNewNote = (req, res) => {
     try {
@@ -43,7 +44,6 @@ const listAllNotes = (req, res) => {
 const listNote = (req, res) => {
     try {
         const params = req.body
-
         if (params.id) {
             DB.listNote(Note, params.id)
                 .then((msg) => {
@@ -63,13 +63,13 @@ const listNote = (req, res) => {
 const addFav = (req, res) => {
     try {
         const params = req.body
-
-        if (params.userId && params.NoteId) {
-            DB.findFavInNote(Note, params.NoteId, params.userId)
+        const userId = auth.getUserId(req.headers.authorization)
+        if (userId && params.NoteId) {
+            DB.findFavInNote(Note, params.NoteId, userId)
                 .then(() => {
-                    DB.addFavToNote(Note, params.NoteId, params.userId)
+                    DB.addFavToNote(Note, params.NoteId, userId)
                         .then(() => {
-                            DB_User.addFavToNoteToUser(User, params.NoteId, params.userId)
+                            DB_User.addFavToNoteToUser(User, params.NoteId, userId)
                                 .then((msg) => {
                                     res.status(200).send({ msg })
                                 })

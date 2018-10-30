@@ -22,4 +22,9 @@ const ensureAuth = (req, res, next) => {
     }
     next()
 }
-module.exports = { ensureAuth }
+const getUserId = (authorization) => {
+    const token = authorization.replace(/['"]+/g, '')
+    const payload = jwt.decode(token, Constants.jwt.key)
+    return payload.sub
+}
+module.exports = { ensureAuth, getUserId }

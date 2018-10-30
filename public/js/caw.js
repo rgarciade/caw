@@ -39,7 +39,7 @@ new Vue({
                     text: this.texto
                 }, { headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token') } })
                 .then((response) => {
-                    console.log(response.data);
+
                     swal('',
                         'nota agregada',
                         'success'
@@ -56,7 +56,7 @@ new Vue({
                     self.titulo = ''
                     self.texto = ''
                     self.listAll()
-                    console.log(error);
+
                 });
         },
         SignIn() {
@@ -68,7 +68,7 @@ new Vue({
                     }
 
                 ).then((response) => {
-                    console.log(response.data);
+
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('userId', response.data.userId);
                     self.listAll()
@@ -76,7 +76,7 @@ new Vue({
                     self.loged = true
                 })
                 .catch((error) => {
-                    console.log(error);
+
                     swal('',
                         'error al loguearse',
                         'error'
@@ -95,7 +95,7 @@ new Vue({
                     }
 
                 ).then((response) => {
-                    console.log(response.data);
+
                     self.created = true
                     self.createderror = false
                     swal('',
@@ -104,7 +104,7 @@ new Vue({
                     )
                 })
                 .catch((error) => {
-                    console.log(error);
+
                     swal('',
                         'error al crear usuario',
                         'error'
@@ -113,21 +113,20 @@ new Vue({
                 });
         },
         addFav(NoteId) {
-            console.log('NoteId', NoteId)
+
             var self = this;
             axios.post('./api/notes/addFav', {
-                    userId: localStorage.getItem('userId'),
                     NoteId: NoteId
                 }, { headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token') } })
                 .then((response) => {
-                    console.log(response.data);
+
                     swal('',
                         'favorito añadido',
                         'success'
                     )
                 })
                 .catch((error) => {
-                    console.log(error);
+
                     swal('',
                         'error al añadir favorito',
                         'error'
@@ -139,7 +138,7 @@ new Vue({
             axios.get('./api/notes/ListAll', {
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded', authorization: localStorage.getItem('token') }
                 }).then((response) => {
-                    console.log(response.data);
+
                     self.notes = response.data
                 })
                 .catch((error) => {
@@ -147,15 +146,15 @@ new Vue({
                         'error al listar notas',
                         'error'
                     )
-                    console.log(error);
+
                 });
         },
         listAllStarts() {
             var self = this;
-            axios.post('./api/user/ListAllfavoritesNotes', {
-                    userId: localStorage.getItem('userId')
-                }, { headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token') } }).then((response) => {
-                    console.log(response.data);
+            axios.get('./api/user/ListAllfavoritesNotes', {
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded', authorization: localStorage.getItem('token') }
+                }).then((response) => {
+
                     self.listfavs = response.data
                 })
                 .catch((error) => {
@@ -163,7 +162,7 @@ new Vue({
                         'error al listar favoritos',
                         'error'
                     )
-                    console.log(error);
+
                 });
         },
         clearAll() {
