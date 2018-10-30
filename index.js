@@ -6,7 +6,7 @@ const port = Constants.App.port
 mongoose.Promise = global.Promise;
 mongoose.connect(Constants.Database.route, { useMongoClient: true })
     .then(() => {
-        console.log("conne okk")
+        console.log("connect okk")
         app.listen(port, () => {
             console.log('servidor corriendo en puerto:' + port)
         })
