@@ -18,7 +18,7 @@ const listNotes = (Note) => {
     return new Promise((resolve, reject) => {
         Note.find({}, (err, notes) => {
             if (err) reject(err)
-            resolve(transformNotes(notes));
+            resolve(transformNotes(notes.reverse()));
         })
     })
 }

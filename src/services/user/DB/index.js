@@ -50,7 +50,7 @@ const getUserFavs = (User, userId) => {
         User.findById(userId, (err, user) => {
             if (err) reject(err, res)
             if (user) {
-                resolve(user.favs)
+                resolve(user.favs.reverse())
             } else {
                 reject('no existe el usuario')
             }
