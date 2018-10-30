@@ -2,11 +2,16 @@ new Vue({
     el: 'principal',
     mounted() {
         let token = localStorage.getItem('token')
-        if (token && token.length > 0) this.loged = true
+        if (token && token.length > 0) {
+            this.loged = true
+            this.listAll()
+        }
     },
     updated() {
         let token = localStorage.getItem('token')
-        if (token && token.length > 0) this.loged = true
+        if (token && token.length > 0) {
+            this.loged = true
+        }
     },
     data: {
         loged: false,
@@ -17,12 +22,18 @@ new Vue({
         name: '',
         pass: '',
         notes: null,
+        listfavs: null,
         titulo: '',
-        texto: ''
+        texto: '',
+        newNote: false
     },
     methods: {
-        newNote() {
+        changeNewNoteStatus() {
+            this.newNote = (this.newNote) ? false : true
+        },
+        addNote() {
             var self = this;
+            this.newNote = false
             axios.post('./api/notes/addNote', {
                     title: this.titulo,
                     text: this.texto
@@ -33,12 +44,18 @@ new Vue({
                         'nota agregada',
                         'success'
                     )
+                    self.titulo = ''
+                    self.texto = ''
+                    self.listAll()
                 })
                 .catch((error) => {
                     swal('',
                         'error al añadir nota',
                         'error'
                     )
+                    self.titulo = ''
+                    self.texto = ''
+                    self.listAll()
                     console.log(error);
                 });
         },
@@ -54,6 +71,7 @@ new Vue({
                     console.log(response.data);
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('userId', response.data.userId);
+                    self.listAll()
                     self.signerror = false
                     self.loged = true
                 })
@@ -63,6 +81,7 @@ new Vue({
                         'error al loguearse',
                         'error'
                     )
+
                     self.signerror = true
                     self.loged = false
                 });
@@ -131,11 +150,31 @@ new Vue({
                     console.log(error);
                 });
         },
+        listAllStarts() {
+            var self = this;
+            axios.post('./api/user/ListAllfavoritesNotes', {
+                    userId: localStorage.getItem('userId')
+                }, { headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token') } }).then((response) => {
+                    console.log(response.data);
+                    self.listfavs = response.data
+                })
+                .catch((error) => {
+                    swal('',
+                        'error al listar favoritos',
+                        'error'
+                    )
+                    console.log(error);
+                });
+        },
         clearAll() {
             this.notes = null
         },
+        clearAllStarts() {
+            this.listfavs = null
+        },
         logout() {
             localStorage.setItem('token', '')
+            this.listfavs = null
             this.created = false
             this.loged = false
         }

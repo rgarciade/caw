@@ -5,64 +5,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <link rel="stylesheet" type="text/css" href="css/caw.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./imgs/caw.png" />
     <title>caw</title>
 </head>
 
 <body>
+    <div id='top'>
+        <img id='imgtop' src="./imgs/caw.svg" height="42" width="42">
+    </div>
     <principal>
-        <div v-if="!loged">
+
+        <div v-if="!loged" id='sing'>
             <form id='SignIn' @submit.prevent="SignIn()">
-                <h1>Crear Usuario</h1>
-                <input type="text" id="nombre1" v-model="name" placeholder="nombre">
-                <input type="password" id="password1" v-model="pass" placeholder="password">
-                <button>Sign In</button>
+
+                <h1>Iniciar Sesion</h1>
+                <input class='input-loging' type="text" id="nombre1" v-model="name" placeholder="nombre">
+                <input class='input-loging' type="password" id="password1" v-model="pass" placeholder="password">
+                <button>Iniciar Sesion</button>
                 <span v-if="signerror"><br>error en el loging</span>
             </form>
             <form id='loging' @submit.prevent="Signup()">
-                <h1>loguearse</h1>
-                <input type="text" id="nombre2" v-model="name" placeholder="nombre">
-                <input type="password" id="password2" v-model="pass" placeholder="password">
-                <button>Sign UP</button>
+
+                <h1>Crear Usuario</h1>
+                <input class='input-loging' type="text" id="nombre2" v-model="name" placeholder="nombre">
+                <input class='input-loging' type="password" id="password2" v-model="pass" placeholder="password">
+                <button>Crear Usuario</button>
                 <span v-if="created"><br>Usuario creado logueese</span>
                 <span v-if="createderror"><br>error al crear usuario</span>
             </form>
         </div>
-        <div v-if="loged">
-            <button v-on:click="logout()"> logout</button>
+        <div v-if="loged" id='logout'>
+            <button v-on:click="logout()" id="button-logout"> logout</button>
         </div>
-        <div v-if="loged">
-            <div>
+        <div v-if="loged" id='loged'>
+            <div v-if="newNote" id="new-note">
                 <h1>Nueva nota</h1>
-                <form id='newnote' @submit.prevent="newNote()">
-                    <input type="text" id="nombre3" v-model="titulo" placeholder="titulo"></br>
-                    <textarea v-model="texto" id="notatext" placeholder="texto"></textarea>
-                    <button>nueva nota</button>
-                    <span v-if="createNoteErro"><br>Usuario creado logueese</span>
-
+                <form id='newnote' @submit.prevent="addNote()">
+                    <input class='title' type="text" id="nombre3" v-model="titulo" placeholder="titulo"></br>
+                    <textarea class='text' v-model="texto" id="notatext" placeholder="texto"></textarea>
+                    <button id='button-add-note'>nueva nota</button>
+                    <span v-if="createNoteErro"><br>error al crear nota</span>
                 </form>
             </div>
-            <h1>listar</h1>
-            <button v-on:click="listAll() ">listAll</button>
-            <button v-on:click="clearAll()">x</button>
-            <ol>
-                <li v-for="(note,index) in notes ">
-                    <h1><img src="./imgs/star.png" v-on:click="addFav(note.id)">{{note.title}}</h1>
-                    <p>{{note.text}}
-                </li>
-                </p>
+            <button v-on:click="changeNewNoteStatus()" id="button-note">nueva nota</button>
+            <div id='listAll'>
+                <h2>Notas</h2>
+                <ul>
+                    <li v-for="(note,index) in notes ">
+                        <h1><img class='star' src="./imgs/star.png" v-on:click="addFav(note.id)"> {{note.title}}</h1>
+                        <p class='notes'>{{note.text}}
+                    </li>
+                    </p>
 
-            </ol>
-            <button v-on:click="listAllStarts() ">list All My Starts</button>
-            <button v-on:click="clearAllStarts()">x</button>
-            <ol>
-                <li v-for="(Start,index) in Starts ">
-                    <h1>{{Start.title}}</h1>
-                    <p>{{Start.text}}
-                </li>
-                </p>
+                </ul>
+            </div>
 
-            </ol>
+            <div id='listAllStartstop'>
+                <h1>listar Favoritos</h1>
+                <button v-on:click="listAllStarts() ">list All My Starts</button>
+                <button v-on:click="clearAllStarts()">x</button>
+                <ul id='listAllStarts'>
+                    <li v-for="(fav,index) in listfavs ">
+                        <h1>{{fav.title}}</h1>
+                        <p class='notes'>{{fav.text}}
+                    </li>
+                    </p>
+                </ul>
+            </div>
         </div>
 
 

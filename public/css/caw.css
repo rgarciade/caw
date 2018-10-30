@@ -1,0 +1,126 @@
+#sing {
+    position: absolute;
+    margin-top: 19%;
+    margin-left: 38%;
+    text-align: center;
+}
+
+.title {
+    border-radius: 7px;
+    padding: 6px;
+    border: 0px;
+}
+
+.text {
+    border-radius: 7px;
+    padding: 6px;
+    border: 0px;
+    margin-top: 5px;
+}
+
+#logout {
+    position: absolute;
+    right: 1em;
+    font-size: 1em;
+}
+
+#button-logout {
+    border-radius: 37px;
+    border: 0px;
+    margin: 5%;
+}
+
+#notatext {
+    max-height: 82px;
+    max-width: 175px;
+}
+
+#button-add-note {
+    left: 3em;
+    position: absolute;
+    top: 15em;
+}
+
+#new-note {
+    position: absolute;
+    left: 10%;
+    top: 17%;
+    text-align: center;
+}
+
+#listAll {
+    position: absolute;
+    top: 11em;
+    left: 39em;
+    background-color: #f5f5f5;
+    padding: 1em;
+    border-radius: 13px;
+}
+
+#listAll h2 {
+    text-align: center;
+}
+
+#listAllStartstop {
+    position: absolute;
+    top: 14em;
+    right: 16%;
+}
+
+.star {
+    cursor: cell;
+}
+
+#listAllStarts {
+    position: absolute;
+    top: 7em;
+    left: -50%;
+}
+
+.notes {
+    max-width: 19em;
+    overflow-y: auto;
+}
+
+#button-note {
+    position: absolute;
+    left: 29%;
+    top: 19%;
+}
+
+#top {
+    width: 100%;
+    left: -1px;
+    top: -1px;
+    height: 7%;
+    position: absolute;
+    background-color: #474550;
+}
+
+#imgtop {
+    position: absolute;
+    left: 48%;
+    top: 12%;
+}
+
+button {
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #ffffff!important;
+    background-color: #9fa91f;
+    border-radius: 6px;
+    border: 2px solid #6c7316;
+}
+
+.input-loging {
+    background-color: rgb(250, 255, 189) !important;
+    border: 0px;
+    padding: 10px;
+}
+
+body {
+    background-color: #6d5eb7;
+    font-family: 'Roboto', sans-serif;
+}
